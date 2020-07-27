@@ -10,6 +10,8 @@ urlpatterns = [
     path("register", views.register_view, name="register"),
     path("register_action", views.register_action, name="register_action"),
     path("profile", views.profile, name="profile"),
+    path("role", views.role_view, name="role"),
+    path("create_member", views.create_member_view, name = "create_member")
     ]
 
 #if settings.DEBUG:

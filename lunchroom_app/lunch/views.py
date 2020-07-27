@@ -5,8 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 import json
+from lunch.models import Table, Event, Member
+
 
 # Create your views here.
+
+role = ''
 
 def index(request):
     if not request.user.is_authenticated:
@@ -45,12 +49,29 @@ def register_action(request):
             first_name=first_name,
             last_name=last_name)
             user = authenticate(request, username=username, password=password)
-            #profile = Profile(userid = user.id, username = user.username)
+            #member = Profile(userid = user.id, username = user.username)
             #profile.save()
             login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return render(request, "lunchroom/role.html")
     else:
         return render(request, "lunchroom/photo_register.html", {"message": "Username already in use"})
+
+def role_view(request):
+    global role
+    role = request.POST["role"]
+    if role == 'Student':
+        return render(request, "lunchroom/yog.html")
+    else:
+        return render(request, "lunchroom/title.html")
+
+def create_member_view(request):
+    if role == 'Student':
+        yog = request.POST["yog"]
+        member = Member(role='Student', info=request.user)
+    else:
+        title = request.POST["title"]
+        member = Member(role='Teacher', info=request.user)
+    return HttpResponseRedirect(reverse("profile"))
 
 def profile(request):
     context = {
