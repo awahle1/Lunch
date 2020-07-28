@@ -34,8 +34,8 @@ class Event(models.Model):
         return (self.name)
 
 class Table(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tables')
-    members = models.ManyToManyField(Member, blank=True, related_name='tables')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ownedtables')
+    members = models.ManyToManyField(User, blank=True, related_name='tables')
     events = models.ManyToManyField(Event, blank=True, related_name='host')
     name = models.CharField(
         max_length=50,

@@ -12,13 +12,40 @@ from lunch.models import Table, Event, Member
 
 role = ''
 
+def get_context(user):
+    context={
+        'user': user
+    }
+    return(context)
+
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "lunchroom/login.html", {"message": None})
-    context = {
-        'user': request.user,
-    }
+    context = get_context(request.user)
     return render(request, 'lunchroom/photo_home.html', context)
+
+def profile(request):
+    context = get_context(request.user)
+    return render(request, 'lunchroom/photo_profile_two.html', context)
+
+def tables_view(request):
+    context = get_context(request.user)
+    return render(request, 'lunchroom/tables.html')
+
+def create_table_view(request):
+    context = get_context(request.user)
+    return render(request, 'lunchroom/create_table.html', context)
+
+def ctable_action(request):
+    name=request.POST["name"]
+    desc=request.POST["description"]
+    table = Table(owner = request.user, name = name, description=desc)
+    table.members.add(request.user)
+    table.save()
+    context = get_context(request.user)
+    context['table'] = table
+    return render(request, 'lunchroom/tableprofile.html', context)
+
 
 def login_view(request):
     username = request.POST["username"]
@@ -49,8 +76,6 @@ def register_action(request):
             first_name=first_name,
             last_name=last_name)
             user = authenticate(request, username=username, password=password)
-            #member = Profile(userid = user.id, username = user.username)
-            #profile.save()
             login(request, user)
         return render(request, "lunchroom/role.html")
     else:
@@ -67,14 +92,10 @@ def role_view(request):
 def create_member_view(request):
     if role == 'Student':
         yog = request.POST["yog"]
-        member = Member(role='Student', info=request.user)
+        member = Member(role='Student', info=request.user, yog=yog)
+        member.save()
     else:
         title = request.POST["title"]
-        member = Member(role='Teacher', info=request.user)
+        member = Member(role='Teacher', info=request.user, title=title)
+        member.save()
     return HttpResponseRedirect(reverse("profile"))
-
-def profile(request):
-    context = {
-        'user': request.user,
-    }
-    return render(request, 'lunchroom/photo_profile_two.html', context)
