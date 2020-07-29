@@ -8,7 +8,7 @@
 		<meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tables</title>
+        <title>Search Results</title>
 		<meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta property="og:title" content="" />
@@ -26,7 +26,7 @@
 	    <!-- ==============================================
 		CSS
 		=============================================== -->
-        <link type="text/css" href="{% static 'assets/css/demos/photo.css' %}"  rel="stylesheet" />
+        <link type="text/css" href="{% static 'assets/css/demos/photo.css' %}" rel="stylesheet" />
 
 		<!-- ==============================================
 		Feauture Detection
@@ -186,7 +186,7 @@
 		   <span class="avatar w-32"><img src="assets/img/users/2.jpg" class="img-resonsive img-circle" width="25" height="25" alt="..."></span>
 		   <!-- hidden-xs hides the username on small devices so only the image appears. -->
 		   <span class="hidden-xs">
-			{{user.first_name}} {{user.last_name}}
+			Alex Grantte
 		   </span>
 		  </a>
 		  <div class="dropdown-menu w dropdown-menu-scale pull-right">
@@ -211,77 +211,62 @@
 	 Navbar Second Section
 	 =============================================== -->
    <section class="nav-sec">
- 	  <div class="d-flex justify-content-between">
- 	   <div class="p-2 nav-icon-lg dark-black">
- 	   <a class="nav-icon" href="{% url 'index' %}"><em class="fa fa-home"></em>
- 		<span>Home</span>
- 	   </a>
- 	   </div>
- 	   <div class="p-2 nav-icon-lg clean-black">
- 	   <a class="nav-icon" href="{% url 'explore' %}"><em class="fa fa-crosshairs"></em>
- 		<span>Explore</span>
- 	   </a>
- 	   </div>
- 	   <div class="p-2 nav-icon-lg dark-black">
- 	   <a class="nav-icon" href="photo_upload.html"><em class="fab fa-instagram"></em>
- 		<span>Upload</span>
- 	   </a>
- 	   </div>
- 	   <div class="p-2 nav-icon-lg mint-green">
-        <a class="nav-icon" href="{% url 'tables' %}"><em class="fa fa-align-left"></em>
-   		<span>Tables</span>
- 	   </a>
- 	   </div>
- 	   <div class="p-2 nav-icon-lg dark-black">
- 	   <a class="nav-icon" href="{% url 'profile' %}"><em class="fa fa-user"></em>
- 		<span>Profile</span>
- 	   </a>
- 	   </div>
- 	  </div>
- 	</section>
+    <div class="d-flex justify-content-between">
+     <div class="p-2 nav-icon-lg dark-black">
+     <a class="nav-icon" href="{% url 'index' %}"><em class="fa fa-home"></em>
+    <span>Home</span>
+     </a>
+     </div>
+     <div class="p-2 nav-icon-lg mint-green">
+     <a class="nav-icon" href="{% url 'explore' %}"><em class="fa fa-crosshairs"></em>
+    <span>Explore</span>
+     </a>
+     </div>
+     <div class="p-2 nav-icon-lg dark-black">
+     <a class="nav-icon" href="photo_upload.html"><em class="fab fa-instagram"></em>
+    <span>Upload</span>
+     </a>
+     </div>
+     <div class="p-2 nav-icon-lg clean-black">
+     <a class="nav-icon" href="{% url 'tables' %}"><em class="fa fa-align-left"></em>
+    <span>Tables</span>
+     </a>
+     </div>
+     <div class="p-2 nav-icon-lg dark-black">
+     <a class="nav-icon" href="{% url 'profile' %}"><em class="fa fa-user"></em>
+    <span>Profile</span>
+     </a>
+     </div>
+    </div>
+  </section>
 
 	 <!-- ==============================================
 	 News Feed Section
 	 =============================================== -->
 	 <section class="stories">
 	  <div class="container">
-      <div class="row">
-        <a href = "{% url 'create_table' %}">
-          <button class="kafe-btn kafe-btn-mint btn-lg btn-block">Create a new table</button>
-        </a>
-      </div>
-      <div class="row">
-        <button class="kafe-btn kafe-btn-mint btn-lg btn-block">Join a table</button>
-      </div>
-      <div class="row one-row">
-       <div class="col-lg-12">
-        <h4>My Tables</h4>
-       </div>
-      </div>
 	   <div class="row">
-       {% for table in user.tables.all %}
-	    <div class="col-lg-4">
-		 <a href="http://127.0.0.1:8000/tables/{{table.id}}">
-		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/9.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-          <div class="story-body text-center">
-           <div class=""><img class="img-circle" "{% static 'assets/img/users/seabass.jpg' %}" alt="user"></div>
-           <h4>{{table.name}}</h4>
-           <p>2 hours ago</p>
-          </div>
+       {% for member in members %}
+       <div class="col-lg-4">
+      <a href="#">
+      <div class="storybox"
+        style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/3.gif') no-repeat;
+               background-size: cover;
+                   background-position: center center;
+                   -webkit-background-size: cover;
+                   -moz-background-size: cover;
+                   -o-background-size: cover;">
+           <div class="story-body text-center">
+            <div class=""><img class="img-circle" src="assets/img/users/16.jpg" alt="user"></div>
+            <h4>{{member.first_name}} {{member.last_name}}</h4>
+            <p>6 hours ago</p>
+           </div>
+      </div>
+      </a>
+     </div>
+       {% endfor %}
+
 		 </div>
-		 </a>
-		</div>
-      {% endfor %}
-
-
-	   </div>
-
 	  </div><!--/ container -->
 	 </section><!--/ newsfeed -->
      <!-- ==============================================
