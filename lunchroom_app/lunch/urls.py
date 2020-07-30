@@ -22,6 +22,10 @@ urlpatterns = [
     path("search_tables", views.search_tables, name='search_tables'),
     path("search_members", views.search_members, name='search_members'),
     path("tables/<str:tableid>", views.table_profile, name = "table_profile"),
+    path("members/<str:username>", views.member_profile, name = "member_profile"),
+
+    path('is_member', views.is_member, name="in_member"),
+    path('join', views.join, name="join"),
     ]
 
 #if settings.DEBUG:

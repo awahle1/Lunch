@@ -60,9 +60,35 @@ def search_members(request):
     #Turn the quereyset into a normal list
     for value in results:
         members.append(value)
+    if request.user in members:
+        members.remove(request.user)
     context = get_context(request.user)
     context['members'] = members
     return render(request, 'lunchroom/member_results.html', context)
+
+def is_member(request):
+    name = json.loads(request.body)['name']
+    table = Table.objects.get(name = name)
+    members = table.members.all()
+    if request.user in members:
+        data = json.dumps({"status": True})
+    else:
+        data = json.dumps({"status": False})
+    return HttpResponse(data, content_type='application/json')
+
+def join(request):
+    id = json.loads(request.body)['id']
+    table = Table.objects.get(id = id)
+    members = table.members.all()
+    if request.user in members:
+        table.members.remove(request.user)
+        table.save()
+        data = json.dumps({"status": False})
+    else:
+        table.members.add(request.user)
+        table.save()
+        data = json.dumps({"status": True})
+    return HttpResponse(data, content_type='application/json')
 
 def create_table_view(request):
     context = get_context(request.user)
@@ -78,6 +104,13 @@ def ctable_action(request):
     context = get_context(request.user)
     context['table'] = table
     return render(request, 'lunchroom/tableprofile.html', context)
+
+def member_profile(request, username):
+    member = User.objects.get(username=username)
+    context = {'user': member}
+
+    return render(request, 'lunchroom/member_profile.html', context)
+
 
 def table_profile(request, tableid):
     id = int(tableid)
