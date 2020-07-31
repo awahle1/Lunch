@@ -47,3 +47,15 @@ class Table(models.Model):
     )
     def __str__(self):
         return (self.name)
+
+class Post(models.Model):
+    text = models.CharField(
+        max_length=300,
+        default = ''
+    )
+    picture_name = models.CharField(
+        max_length=300,
+        default = ''
+    )
+    table = models.ManyToManyField(Table, blank=True, related_name='posts')
+    author = models.ManyToManyField(User, blank=True, related_name='posts')

@@ -6,9 +6,10 @@ from django.contrib import admin
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("new_post", views.new_post, name="new_post"),
+    path("explore", views.explore, name="explore"),
     path("tables", views.tables_view, name="tables"),
     path("profile", views.profile, name="profile"),
-    path("explore", views.explore, name="explore"),
 
     path("login", views.login_view, name="login"),
     path("register", views.register_view, name="register"),
@@ -26,6 +27,8 @@ urlpatterns = [
 
     path('is_member', views.is_member, name="in_member"),
     path('join', views.join, name="join"),
+
+    path('postpic', views.postpic, name='postpic')
     ]
 
 #if settings.DEBUG:

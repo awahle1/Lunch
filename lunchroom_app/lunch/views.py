@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 import json
-from lunch.models import Table, Event, Member
+from lunch.models import Table, Event, Member, Post
 
 
 # Create your views here.
@@ -24,17 +24,21 @@ def index(request):
     context = get_context(request.user)
     return render(request, 'lunchroom/home.html', context)
 
-def profile(request):
+def explore(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/profile.html', context)
+    return render(request, 'lunchroom/explore.html', context)
+
+def new_post(request):
+    context = get_context(request.user)
+    return render(request, 'lunchroom/new_post.html', context)
 
 def tables_view(request):
     context = get_context(request.user)
     return render(request, 'lunchroom/tables.html', context)
 
-def explore(request):
+def profile(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/explore.html', context)
+    return render(request, 'lunchroom/profile.html', context)
 
 def search_tables(request):
     search = request.POST["searchtable"]
@@ -172,3 +176,19 @@ def create_member_view(request):
         member = Member(role='Teacher', info=request.user, title=title)
         member.save()
     return HttpResponseRedirect(reverse("profile"))
+
+def postpic(request):
+    context=get_context(request.user)
+    uploaded_file = request.FILES.get('propic')
+    text = request.POST['text']
+    table = request.POST['table']
+    table = Table.objects.get(name=table)
+    fs=FileSystemStorage()
+    fs.save(uploaded_file.name, uploaded_file)
+    post = Post(text=text, picture_name=uploaded_file.name)
+    post.save()
+    post.table.add(table)
+    post.author.add(request.user)
+    post.save()
+    context['post']=post
+    return render(request, 'lunchroom/post.html', context)
