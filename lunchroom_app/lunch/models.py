@@ -8,7 +8,11 @@ class Member(models.Model):
         choices = [('Teacher', 'Student')],
         default='Student',
     )
-    info = models.ForeignKey(User, on_delete=models.CASCADE, related_name='member')
+    propic = models.CharField(
+        max_length = 200,
+        default='defaultpropic.png',
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='member', null=True)
     yog = models.CharField(
         max_length=4,
         default = ''
@@ -18,7 +22,7 @@ class Member(models.Model):
         default = ''
     )
     def __str__(self):
-        return (self.info.first_name)
+        return (self.user.first_name + " "+ self.user.last_name)
 
 class Event(models.Model):
     name = models.CharField(

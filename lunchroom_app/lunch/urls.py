@@ -28,7 +28,8 @@ urlpatterns = [
     path('is_member', views.is_member, name="in_member"),
     path('join', views.join, name="join"),
 
-    path('postpic', views.postpic, name='postpic')
+    path('postpic', views.postpic, name='postpic'),
+    path('propic', views.propic, name='propic'),
     ]
 
 #if settings.DEBUG:

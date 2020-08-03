@@ -20,32 +20,35 @@ def get_context(user):
 
 def index(request):
     if not request.user.is_authenticated:
-        return render(request, "lunchroom/login.html", {"message": None})
+        return render(request, "lunch/login.html", {"message": None})
     context = get_context(request.user)
-    return render(request, 'lunchroom/home.html', context)
+    return render(request, 'lunch/home.html', context)
 
 def explore(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/explore.html', context)
+    return render(request, 'lunch/explore.html', context)
 
 def new_post(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/new_post.html', context)
+    return render(request, 'lunch/new_post.html', context)
 
 def tables_view(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/tables.html', context)
+    return render(request, 'lunch/tables.html', context)
 
 def profile(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/profile.html', context)
+    print('--------------------')
+    print(request.user.member.propic)
+    context['propic'] = request.user.member.propic
+    return render(request, 'lunch/profile.html', context)
 
 def search_tables(request):
     search = request.POST["searchtable"]
     tables = Table.objects.filter(name__icontains=search)
     context = get_context(request.user)
     context['tables'] = tables
-    return render(request, 'lunchroom/table_results.html', context)
+    return render(request, 'lunch/table_results.html', context)
 
 def search_members(request):
     #Get the search string and preform various queries
@@ -68,7 +71,7 @@ def search_members(request):
         members.remove(request.user)
     context = get_context(request.user)
     context['members'] = members
-    return render(request, 'lunchroom/member_results.html', context)
+    return render(request, 'lunch/member_results.html', context)
 
 def is_member(request):
     name = json.loads(request.body)['name']
@@ -96,7 +99,7 @@ def join(request):
 
 def create_table_view(request):
     context = get_context(request.user)
-    return render(request, 'lunchroom/create_table.html', context)
+    return render(request, 'lunch/create_table.html', context)
 
 def ctable_action(request):
     name=request.POST["name"]
@@ -107,13 +110,13 @@ def ctable_action(request):
     table.save()
     context = get_context(request.user)
     context['table'] = table
-    return render(request, 'lunchroom/tableprofile.html', context)
+    return render(request, 'lunch/tableprofile.html', context)
 
 def member_profile(request, username):
     member = User.objects.get(username=username)
     context = {'user': member}
 
-    return render(request, 'lunchroom/member_profile.html', context)
+    return render(request, 'lunch/member_profile.html', context)
 
 
 def table_profile(request, tableid):
@@ -121,7 +124,7 @@ def table_profile(request, tableid):
     table = Table.objects.get(id = id)
     context = get_context(request.user)
     context['table'] = table
-    return render(request, 'lunchroom/tableprofile.html', context)
+    return render(request, 'lunch/tableprofile.html', context)
 
 def login_view(request):
     username = request.POST["username"]
@@ -131,10 +134,10 @@ def login_view(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "lunchroom/login.html", {"message": "Invalid Credentials"})
+        return render(request, "lunch/login.html", {"message": "Invalid Credentials"})
 
 def register_view(request):
-    return render(request, "lunchroom/register.html")
+    return render(request, "lunch/register.html")
 
 def register_action(request):
     username = request.POST["username"]
@@ -154,26 +157,26 @@ def register_action(request):
             last_name=last_name)
             user = authenticate(request, username=username, password=password)
             login(request, user)
-        return render(request, "lunchroom/role.html")
+        return render(request, "lunch/role.html")
     else:
-        return render(request, "lunchroom/register.html", {"message": "Username already in use"})
+        return render(request, "lunch/register.html", {"message": "Username already in use"})
 
 def role_view(request):
     global role
     role = request.POST["role"]
     if role == 'Student':
-        return render(request, "lunchroom/yog.html")
+        return render(request, "lunch/yog.html")
     else:
-        return render(request, "lunchroom/title.html")
+        return render(request, "lunch/title.html")
 
 def create_member_view(request):
     if role == 'Student':
         yog = request.POST["yog"]
-        member = Member(role='Student', info=request.user, yog=yog)
+        member = Member(role='Student', user=request.user, yog=yog)
         member.save()
     else:
         title = request.POST["title"]
-        member = Member(role='Teacher', info=request.user, title=title)
+        member = Member(role='Teacher', user=request.user, title=title)
         member.save()
     return HttpResponseRedirect(reverse("profile"))
 
@@ -191,4 +194,15 @@ def postpic(request):
     post.author.add(request.user)
     post.save()
     context['post']=post
-    return render(request, 'lunchroom/post.html', context)
+    return render(request, 'lunch/post.html', context)
+
+def propic(request):
+    user=request.user
+    member = Member.objects.get(user=user)
+    uploaded_file = request.FILES.get('propic')
+    fs=FileSystemStorage()
+    fs.save(uploaded_file.name, uploaded_file)
+    member.propic = uploaded_file.name
+    member.save()
+    context=get_context(request.user)
+    return HttpResponseRedirect(reverse("profile"))
