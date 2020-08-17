@@ -62,4 +62,4 @@ class Post(models.Model):
         default = ''
     )
     table = models.ManyToManyField(Table, blank=True, related_name='posts')
-    author = models.ManyToManyField(User, blank=True, related_name='posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')

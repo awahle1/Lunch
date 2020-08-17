@@ -25,6 +25,9 @@ urlpatterns = [
     path("tables/<str:tableid>", views.table_profile, name = "table_profile"),
     path("members/<str:username>", views.member_profile, name = "member_profile"),
 
+    path("posts/<str:postid>", views.show_post, name = "show_post"),
+    path("usertables/<str:username>", views.show_tables, name = "show_tables"),
+
     path('is_member', views.is_member, name="in_member"),
     path('join', views.join, name="join"),
 

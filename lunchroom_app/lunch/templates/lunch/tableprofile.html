@@ -423,7 +423,7 @@
 
         <div class="menu-category">
          <ul class="menu">
-          <li class="current-menu-item"><a href="photo_profile.html">Posts <span>1.7k</span></a></li>
+          <li class="current-menu-item"><a href="photo_profile.html">Posts <span>{{table.posts.count}}</span></a></li>
           <li><a href="photo_followers.html">Members <span>{{table.members.count}}</span></a></li>
          </ul>
 		</div>
@@ -438,116 +438,28 @@
 	 <section class="newsfeed">
 	  <div class="container">
 
-	   <div class="row">
+      <div class="row">
+        {% for post in table.posts.all %}
+        <div class="col-lg-4">
+       <a href="http://127.0.0.1:8000/posts/{{post.id}}" data-toggle="modal">
+       <div class="explorebox"
+         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url(http://127.0.0.1:8000/media/{{post.picture_name}}) no-repeat;
+                background-size: cover;
+                    background-position: center center;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;">
+        <div class="explore-top">
+         <div class="explore-like"><i class="fa fa-heart"></i> <span>{{post.text}}</span></div>
+         <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+            </div>
+       </div>
+       </a>
+      </div><!--/ col-lg-4 -->
+        {% endfor %}
+      </div>
 
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/14.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>14,100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/18.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>100,100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/15.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	   </div><!--/ row -->
-
-	   <div class="row">
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/25.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>324</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/36.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>1023</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/26.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>40</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	   </div><!--/ row -->
-
+	 
 	  </div><!--/ container -->
 	 </section><!--/ newsfeed -->
 

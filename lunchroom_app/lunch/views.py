@@ -180,6 +180,18 @@ def create_member_view(request):
         member.save()
     return HttpResponseRedirect(reverse("profile"))
 
+def show_post(request, postid):
+    context=get_context(request.user)
+    postid = int(postid)
+    post = Post.objects.get(id = postid)
+    context['post']=post
+    return render(request, 'lunch/post.html', context)
+
+def show_tables(request, username):
+    context=get_context(request.user)
+    context['tables']=User.objects.get(username=username).tables.all()
+    return render(request, 'lunch/table_results.html', context)
+
 def postpic(request):
     context=get_context(request.user)
     uploaded_file = request.FILES.get('propic')
@@ -188,10 +200,9 @@ def postpic(request):
     table = Table.objects.get(name=table)
     fs=FileSystemStorage()
     fs.save(uploaded_file.name, uploaded_file)
-    post = Post(text=text, picture_name=uploaded_file.name)
+    post = Post(text=text, picture_name=uploaded_file.name,author=request.user)
     post.save()
     post.table.add(table)
-    post.author.add(request.user)
     post.save()
     context['post']=post
     return render(request, 'lunch/post.html', context)
