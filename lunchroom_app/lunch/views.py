@@ -38,8 +38,6 @@ def tables_view(request):
 
 def profile(request):
     context = get_context(request.user)
-    print('--------------------')
-    print(request.user.member.propic)
     context['propic'] = request.user.member.propic
     return render(request, 'lunch/profile.html', context)
 
@@ -77,24 +75,28 @@ def is_member(request):
     name = json.loads(request.body)['name']
     table = Table.objects.get(name = name)
     members = table.members.all()
-    if request.user in members:
-        data = json.dumps({"status": True})
+    if request.user == table.owner:
+        data = json.dumps({"status": 'Owner'})
+    elif request.user in members:
+        data = json.dumps({"status": 'Member'})
     else:
-        data = json.dumps({"status": False})
+        data = json.dumps({"status": 'Join'})
     return HttpResponse(data, content_type='application/json')
 
 def join(request):
     id = json.loads(request.body)['id']
     table = Table.objects.get(id = id)
     members = table.members.all()
-    if request.user in members:
+    if request.user == table.owner:
+        data = json.dumps({"status": 'Owner'})
+    elif request.user in members:
         table.members.remove(request.user)
         table.save()
-        data = json.dumps({"status": False})
+        data = json.dumps({"status": "Join"})
     else:
         table.members.add(request.user)
         table.save()
-        data = json.dumps({"status": True})
+        data = json.dumps({"status": "Member"})
     return HttpResponse(data, content_type='application/json')
 
 def create_table_view(request):
@@ -125,6 +127,48 @@ def table_profile(request, tableid):
     context = get_context(request.user)
     context['table'] = table
     return render(request, 'lunch/tableprofile.html', context)
+
+def edit_table_profile(request, tableid):
+    id = int(tableid)
+    table = Table.objects.get(id = id)
+    context = get_context(request.user)
+    context['table'] = table
+    return render(request, 'lunch/edittableprofile.html', context)
+
+def edit_tpp(request):
+    tableid = request.POST["table"]
+    table = Table.objects.get(id = tableid)
+    uploaded_file = request.FILES.get('propic')
+    fs=FileSystemStorage()
+    fs.save(uploaded_file.name, uploaded_file)
+    table.pp_name = uploaded_file.name
+    table.save()
+    context = get_context(request.user)
+    context['table'] = table
+    return HttpResponseRedirect(reverse("table_profile", args=[tableid]))
+
+def edit_banner(request):
+    tableid = request.POST["table"]
+    table = Table.objects.get(id = tableid)
+    uploaded_file = request.FILES.get('banner')
+    fs=FileSystemStorage()
+    fs.save(uploaded_file.name, uploaded_file)
+    table.banner_name = uploaded_file.name
+    table.save()
+    context = get_context(request.user)
+    context['table'] = table
+    return HttpResponseRedirect(reverse("table_profile", args=[tableid]))
+
+def edit_description(request):
+    tableid = request.POST["table"]
+    table = Table.objects.get(id = tableid)
+    description = request.POST['description']
+    table.description = description
+    table.save()
+    context = get_context(request.user)
+    context['table'] = table
+    return HttpResponseRedirect(reverse("table_profile", args=[tableid]))
+
 
 def login_view(request):
     username = request.POST["username"]

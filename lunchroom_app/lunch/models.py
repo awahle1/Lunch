@@ -49,6 +49,14 @@ class Table(models.Model):
         max_length = 200,
         default = ''
     )
+    banner_name = models.CharField(
+        max_length = 200,
+        default = ''
+    )
+    pp_name = models.CharField(
+        max_length = 200,
+        default = ''
+    )
     def __str__(self):
         return (self.name)
 

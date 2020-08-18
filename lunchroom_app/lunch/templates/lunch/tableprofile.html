@@ -49,9 +49,11 @@
           dataType: "json",
           data: JSON.stringify({ "name":name }),
           success: function(data) {
-              if(data["status"]){
-                console.log(document.getElementsByClassName("container-fluid"));
+              if(data["status"]=="Member"){
                 document.getElementById("joinbutton").innerHTML = "Member";
+              }
+              else if (data['status']=="Owner") {
+                document.getElementById("joinbutton").innerHTML = "Owner - Edit Table Profile";
               }
               else{
                 document.getElementById("joinbutton").innerHTML = "Join";
@@ -66,8 +68,11 @@
         dataType: "json",
         data: JSON.stringify({ "id":id}),
         success: function(data) {
-          if(data["status"]){
+          if(data["status"]=="Member"){
             document.getElementById("joinbutton").innerHTML = "Member";
+          }
+          else if(data["status"]=="Owner"){
+            window.location.href = (window.location.href + '/edit');
           }
           else{
             document.getElementById("joinbutton").innerHTML = "Join";
@@ -313,30 +318,16 @@
 	 News Feed Section
 	 =============================================== -->
 	 <section class="profile">
+     <div class="" style="height: 20px;">
+
+     </div>
 	  <div class="container-fluid">
 	   <div class="row">
 
-	   <div class="col-lg-3">
-		 <div class="profilebox hidden-xs hidden-sm"
-		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/4.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		 </div>
-		 <div class="profilebox hidden-xs hidden-sm"
-		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/1.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		 </div>
-	   </div>
-	   <div class="col-lg-6">
+
+	   <div class="col-lg-12">
 		 <div class="profilebox-large hidden-xs hidden-sm"
-		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/9.jpg') no-repeat;
+		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url(http://127.0.0.1:8000/media/{{table.banner_name}}) no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -344,24 +335,7 @@
                   -o-background-size: cover;">
 		 </div>
 	   </div>
-	   <div class="col-lg-3">
-		 <div class="profilebox hidden-xs hidden-sm"
-		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/11.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		 </div>
-		 <div class="profilebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.6), rgba(34,34,34,0.6)), url('assets/img/posts/12.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		 </div>
-	   </div>
+
 
        </div><!--/ row-->
 	  </div><!--/ container -->
@@ -377,7 +351,7 @@
 	    <div class="col-lg-12">
 		   <div class="post-content">
 		    <div class="author-post text-center">
-		     <a href="#"><img class="img-fluid img-circle" src="assets/img/users/13.jpeg" alt="Image"></a>
+		     <a href="#"><img class="img-fluid img-circle" src="/media/{{table.pp_name}}" alt="Image"></a>
 		    </div><!-- /author -->
 		   </div><!-- /.post-content -->
 		</div><!-- /col-sm-12 -->
@@ -459,7 +433,7 @@
         {% endfor %}
       </div>
 
-	 
+
 	  </div><!--/ container -->
 	 </section><!--/ newsfeed -->
 

@@ -8,12 +8,13 @@
 		<meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Explore</title>
+        <title>{{table.name}}</title>
 		<meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta property="og:title" content="" />
         <meta property="og:url" content="" />
         <meta property="og:description" content="" />
+
 		<!-- ==============================================
 		Favicons
 		=============================================== -->
@@ -25,7 +26,7 @@
 	    <!-- ==============================================
 		CSS
 		=============================================== -->
-        <link type="text/css" href="{% static 'assets/css/demos/photo.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'assets/css/demos/photo.css' %}"  rel="stylesheet" />
 
 		<!-- ==============================================
 		Feauture Detection
@@ -37,6 +38,7 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   </head>
 
@@ -185,7 +187,7 @@
 		   <span class="avatar w-32"><img src="assets/img/users/2.jpg" class="img-resonsive img-circle" width="25" height="25" alt="..."></span>
 		   <!-- hidden-xs hides the username on small devices so only the image appears. -->
 		   <span class="hidden-xs">
-			{{user.first_name}} {{user.last_name}}
+			Alex Grantte
 		   </span>
 		  </a>
 		  <div class="dropdown-menu w dropdown-menu-scale pull-right">
@@ -210,371 +212,184 @@
 	 Navbar Second Section
 	 =============================================== -->
    <section class="nav-sec">
-    <div class="d-flex justify-content-between">
-     <div class="p-2 nav-icon-lg dark-black">
-     <a class="nav-icon" href="{% url 'index' %}"><em class="fa fa-home"></em>
-    <span>Home</span>
-     </a>
-     </div>
-     <div class="p-2 nav-icon-lg mint-green">
-     <a class="nav-icon" href="{% url 'explore' %}"><em class="fa fa-crosshairs"></em>
-    <span>Explore</span>
-     </a>
-     </div>
-     <div class="p-2 nav-icon-lg dark-black">
-     <a class="nav-icon" href="{% url 'new_post' %}"><em class="fab fa-instagram"></em>
-    <span>Upload</span>
-     </a>
-     </div>
-     <div class="p-2 nav-icon-lg clean-black">
-     <a class="nav-icon" href="{% url 'tables' %}"><em class="fa fa-align-left"></em>
-    <span>Tables</span>
-     </a>
-     </div>
-     <div class="p-2 nav-icon-lg dark-black">
-     <a class="nav-icon" href="{% url 'profile' %}"><em class="fa fa-user"></em>
-    <span>Profile</span>
-     </a>
-     </div>
-    </div>
+ 	  <div class="d-flex justify-content-between">
+ 	   <div class="p-2 nav-icon-lg dark-black">
+ 	   <a class="nav-icon" href="{% url 'index' %}"><em class="fa fa-home"></em>
+ 		<span>Home</span>
+ 	   </a>
+ 	   </div>
+ 	   <div class="p-2 nav-icon-lg clean-black">
+ 	   <a class="nav-icon" href="{% url 'explore' %}"><em class="fa fa-crosshairs"></em>
+ 		<span>Explore</span>
+ 	   </a>
+ 	   </div>
+ 	   <div class="p-2 nav-icon-lg dark-black">
+ 	   <a class="nav-icon" href="{% url 'new_post' %}"><em class="fab fa-instagram"></em>
+ 		<span>Upload</span>
+ 	   </a>
+ 	   </div>
+ 	   <div class="p-2 nav-icon-lg mint-green">
+ 	   <a class="nav-icon" href="{% url 'tables' %}"><em class="fa fa-align-left"></em>
+ 		<span>Tables</span>
+ 	   </a>
+ 	   </div>
+ 	   <div class="p-2 nav-icon-lg dark-black">
+ 	   <a class="nav-icon" href="{% url 'profile' %}"><em class="fa fa-user"></em>
+ 		<span>Profile</span>
+ 	   </a>
+ 	   </div>
+ 	  </div>
  	</section>
+
+	 <!-- ==============================================
+	 News Feed Section
+	 =============================================== -->
+	 <section class="profile">
+     <div class="" style="height: 20px;">
+
+     </div>
+	  <div class="container-fluid">
+	   <div class="row">
+
+
+	   <div class="col-lg-12">
+		 <div class="profilebox-large hidden-xs hidden-sm"
+		   style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url(http://127.0.0.1:8000/media/{{table.banner_name}}) no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+		 </div>
+	   </div>
+
+
+       </div><!--/ row-->
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+
+	 <!-- ==============================================
+	 User Profile Section
+	 =============================================== -->
+	 <section class="user-profile">
+	  <div class="container-fluid">
+	   <div class="row">
+
+	    <div class="col-lg-12">
+		   <div class="post-content">
+		    <div class="author-post text-center">
+		     <a href="#"><img class="img-fluid img-circle" src="{/media/{{table.tpp_name}}}" alt="Image"></a>
+		    </div><!-- /author -->
+		   </div><!-- /.post-content -->
+		</div><!-- /col-sm-12 -->
+
+       </div><!--/ row-->
+       <div class="row">
+         <div class="col-lg-6">
+           <form class="" action="{% url 'edit_tpp' %}" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             <center><label for="propic">Edit Profile Picture</label>  <input type="file" name="propic"></center>
+             <input type="hidden" name="table" value="{{ table.id }}">
+             <center><button type="submit" name="button" class="kafe-btn kafe-btn-mint">Update</button></center>
+           </form>
+         </div>
+         <div class="col-lg-6">
+           <form class="" action="{% url 'edit_banner' %}" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             <center><label for="banner">Edit Banner</label>  <input type="file" name="banner"></center>
+             <input type="hidden" name="table" value="{{ table.id }}">
+           <center><button type="submit" name="button" class="kafe-btn kafe-btn-mint">Update</button></center>
+           </form>
+         </div>
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+   <section>
+     <div class="container">
+
+
+       </div>
+
+     </div>
+   </section>
+
+	 <!-- ==============================================
+	 User Profile Section
+	 =============================================== -->
+	 <section class="details">
+	  <div class="container">
+	   <div class="row">
+	    <div class="col-lg-12">
+
+          <div class="details-box row">
+		   <div class="col-lg-9">
+           <div class="content-box">
+		     <h4 id='tablename'>{{table.name}}</h4>
+             <p>{{table.description}}</p>
+             <form class="" action="{% url 'edit_description' %}" method="post">
+               {% csrf_token %}
+               <textarea  maxlength ="200" name="description" rows="4" cols="115"></textarea>
+               <input type="hidden" name="table" value="{{ table.id }}">
+               <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Update Description</button>
+             </form>
+           </div><!--/ media #0fc19e-->
+		   </div>
+		   <div class="col-lg-3">
+           <div class="follow-box">
+		 <!--   <a href="" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> Joined</a>-->
+           </div><!--/ dropdown -->
+		   </div>
+          </div><!--/ details-box -->
+
+		</div>
+	   </div>
+	  </div><!--/ container -->
+	 </section><!--/ profile -->
+
+	 <!-- ==============================================
+	 Home Menu Section
+	 =============================================== -->
+     <section class="home-menu">
+      <div class="container">
+       <div class="row">
+
+        <div class="menu-category">
+         <ul class="menu">
+          <li class="current-menu-item"><a href="photo_profile.html">Posts <span>{{table.posts.count}}</span></a></li>
+          <li><a href="photo_followers.html">Members <span>{{table.members.count}}</span></a></li>
+         </ul>
+		</div>
+
+	   </div><!--/row -->
+      </div><!--/container -->
+     </section><!--/home-menu -->
+
 	 <!-- ==============================================
 	 News Feed Section
 	 =============================================== -->
 	 <section class="newsfeed">
 	  <div class="container">
-      <div class="navbar-left">
-  		 <ul class="nav navbar-nav">
-  		   <li>
-  		      <div class="search-dashboard">
-              <form action = "{% url 'search_tables'%}" method="post" class="form-signin">
-                {% csrf_token %}
-               <div class="form-group">
-                <input name="searchtable" type="text" class="form-control" placeholder="tables">
-               </div>
-               <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">search</button>
-              </form>
+
+      <div class="row">
+        {% for post in table.posts.all %}
+        <div class="col-lg-4">
+       <a href="http://127.0.0.1:8000/posts/{{post.id}}" data-toggle="modal">
+       <div class="explorebox"
+         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url(http://127.0.0.1:8000/media/{{post.picture_name}}) no-repeat;
+                background-size: cover;
+                    background-position: center center;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;">
+        <div class="explore-top">
+         <div class="explore-like"><i class="fa fa-heart"></i> <span>{{post.text}}</span></div>
+         <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
             </div>
-  		   </li>
-         <li>
-  		      <div class="search-dashboard">
-              <form action = "{% url 'search_members'%}" method="post" class="form-signin">
-               {% csrf_token %}
-              <div class="form-group">
-               <input name="searchmember" type="text" class="form-control" placeholder="people">
-              </div>
-              <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">search</button>
-              </form>
-            </div>
-  		   </li>
-        </ul>
-
-
-
-
-
-
-
+       </div>
+       </a>
+      </div><!--/ col-lg-4 -->
+        {% endfor %}
       </div>
-	   <div class="row one-row">
-	    <div class="col-lg-12">
-	     <a href=""><h4>See All</h4></a>
-		</div>
-	   </div>
 
-	   <div class="row top-row">
-
-	    <div class="col-lg-3">
-		 <div class="tr-section">
-		  <div class="tr-post">
-		   <div class="entry-header">
-		    <div class="entry-thumbnail">
-		     <a href="#"><img class="img-fluid" src="assets/img/posts/30.jpg" alt="Image"></a>
-		    </div><!-- /entry-thumbnail -->
-	       </div><!-- /entry-header -->
-		   <div class="post-content">
-		    <div class="author-post text-center">
-		     <a href="#"><img class="img-fluid rounded-circle" src="assets/img/users/2.jpg" alt="Image"></a>
-		    </div><!-- /author -->
-			<div class="card-content">
-			 <h4>Alex Grantte</h4>
-		     <span>@alex</span>
-			</div>
-			 <a href="" class="kafe-btn kafe-btn-mint-small full-width"> Follow
-			 </a>
-		   </div><!-- /.post-content -->
-		  </div><!-- /.tr-post -->
-	     </div><!-- /.tr-post -->
-		</div><!-- /col-sm-3 -->
-
-	    <div class="col-lg-3">
-		 <div class="tr-section">
-		  <div class="tr-post">
-		   <div class="entry-header">
-		    <div class="entry-thumbnail">
-		     <a href="#"><img class="img-fluid" src="assets/img/posts/27.jpg" alt="Image"></a>
-		    </div><!-- /entry-thumbnail -->
-	       </div><!-- /entry-header -->
-		   <div class="post-content">
-		    <div class="author-post text-center">
-		     <a href="#"><img class="img-fluid rounded-circle" src="assets/img/users/3.jpg" alt="Image"></a>
-		    </div><!-- /author -->
-			<div class="card-content">
-			 <h4>Anna Morgan</h4>
-		     <span>@anna</span>
-			</div>
-			 <a href="" class="kafe-btn kafe-btn-mint-small full-width"> Follow
-			 </a>
-		   </div><!-- /.post-content -->
-		  </div><!-- /.tr-post -->
-	     </div><!-- /.tr-post -->
-		</div><!-- /col-sm-3 -->
-
-	    <div class="col-lg-3">
-		 <div class="tr-section">
-		  <div class="tr-post">
-		   <div class="entry-header">
-		    <div class="entry-thumbnail">
-		     <a href="#"><img class="img-fluid" src="assets/img/posts/28.jpg" alt="Image"></a>
-		    </div><!-- /entry-thumbnail -->
-	       </div><!-- /entry-header -->
-		   <div class="post-content">
-		    <div class="author-post text-center">
-		     <a href="#"><img class="img-fluid rounded-circle" src="assets/img/users/6.jpg" alt="Image"></a>
-		    </div><!-- /author -->
-			<div class="card-content">
-			 <h4>Sean Coleman</h4>
-		     <span>@sean</span>
-			</div>
-			 <a href="" class="kafe-btn kafe-btn-mint-small full-width"> Follow
-			 </a>
-		   </div><!-- /.post-content -->
-		  </div><!-- /.tr-post -->
-	     </div><!-- /.tr-post -->
-		</div><!-- /col-sm-3 -->
-
-	    <div class="col-lg-3">
-		 <div class="tr-section">
-		  <div class="tr-post">
-		   <div class="entry-header">
-		    <div class="entry-thumbnail">
-		     <a href="#"><img class="img-fluid" src="assets/img/posts/31.jpg" alt="Image"></a>
-		    </div><!-- /entry-thumbnail -->
-	       </div><!-- /entry-header -->
-		   <div class="post-content">
-		    <div class="author-post text-center">
-		     <a href="#"><img class="img-fluid rounded-circle" src="assets/img/users/15.jpg" alt="Image"></a>
-		    </div><!-- /author -->
-			<div class="card-content">
-			 <h4>Vanessa Wells</h4>
-		     <span>@vanessa</span>
-			</div>
-			 <a href="" class="kafe-btn kafe-btn-mint-small full-width"> Follow
-			 </a>
-		   </div><!-- /.post-content -->
-		  </div><!-- /.tr-post -->
-	     </div><!-- /.tr-post -->
-		</div><!-- /col-sm-3 -->
-
-	   </div>
-
-	   <div class="row one-row">
-	    <div class="col-lg-12">
-	     <h4>Explore Section</h4>
-		</div>
-	   </div>
-
-	   <div class="row">
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/22.gif') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>14,100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/13.jpeg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/7.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>100,100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/1.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/19.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>100</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/2.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	   </div><!--/ row -->
-
-	   <div class="row">
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/16.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>324</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/3.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/17.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>1023</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/4.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/20.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>40</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/5.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	   </div><!--/ row -->
-
-	   <div class="row">
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/8.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>63,453</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/6.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/9.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>1243</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/7.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	    <div class="col-lg-4">
-		 <a href="#myModal" data-toggle="modal">
-		 <div class="explorebox"
-		   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/10.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-		  <div class="explore-top">
-		   <div class="explore-like"><i class="fa fa-heart"></i> <span>645</span></div>
-		   <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-          </div>
-          <div class="explore-body">
-           <div class=""><img class="img-circle" src="assets/img/users/8.jpg" alt="user"></div>
-          </div>
-		 </div>
-		 </a>
-		</div><!--/ col-lg-4 -->
-
-	   </div><!--/ row -->
 
 	  </div><!--/ container -->
 	 </section><!--/ newsfeed -->
@@ -590,7 +405,7 @@
          <div class="row">
 
           <div class="col-md-8 modal-image">
-           <img class="img-responsive" src="assets/img/posts/6.jpg" alt="Image"/>
+           <img class="img-responsive" src="{% static 'assets/img/users/seabass.jpg' %}" alt="Image"/>
           </div><!--/ col-md-8 -->
           <div class="col-md-4 modal-meta">
            <div class="modal-meta-top">
@@ -598,7 +413,7 @@
 			 <span aria-hidden="true">×</span><span class="sr-only">Close</span>
 			</button><!--/ button -->
             <div class="img-poster clearfix">
-             <a href=""><img class="img-responsive img-circle" src="assets/img/users/18.jpg" alt="Image"/></a>
+             <a href=""><img class="img-responsive img-circle" src="{% static 'assets/img/users/seabass.jpg' %}" alt="Image"/></a>
              <strong><a href="">Benjamin</a></strong>
              <span>12 minutes ago</span><br/>
 		     <a href="" class="kafe kafe-btn-mint-small"><i class="fa fa-check-square"></i> Following</a>
@@ -658,7 +473,7 @@
 			      <a class="modal-comment" href="#"><i class="fa fa-comments"></i></a><span> 786,286</span> </li>
 			  <li>
 			   <span class="thumb-xs">
-				<img class="img-responsive img-circle" src="assets/img/users/13.jpeg" alt="Image">
+				<img class="img-responsive img-circle" src="assets/img/users/13.jpeg" alt="...">
 			   </span>
 			   <div class="comment-body">
 				 <input class="form-control input-sm" type="text" placeholder="Write your comment...">
@@ -676,7 +491,6 @@
        </div><!--/ modal-content -->
       </div><!--/ modal-dialog -->
      </div><!--/ modal -->
-
 
      <!-- ==============================================
 	 Scripts
