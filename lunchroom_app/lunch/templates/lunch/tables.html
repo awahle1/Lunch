@@ -261,9 +261,9 @@
 	   <div class="row">
        {% for table in user.tables.all %}
 	    <div class="col-lg-4">
-		 <a href="http://127.0.0.1:8000/tables/{{table.id}}">
+		 <a href="/tables/{{table.id}}">
 		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url(http://127.0.0.1:8000/media/{{table.pp_name}}) no-repeat;
+		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url(/media/{{table.pp_name}}) no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;

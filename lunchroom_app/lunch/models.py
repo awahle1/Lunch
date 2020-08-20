@@ -69,5 +69,14 @@ class Post(models.Model):
         max_length=300,
         default = ''
     )
+    auth_pp = models.CharField(
+        max_length=300,
+        default = ''
+    )
+    ts = models.IntegerField(
+        default = 0,
+        null = True,
+        blank=True
+    )
     table = models.ManyToManyField(Table, blank=True, related_name='posts')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')

@@ -288,7 +288,7 @@
            </li>
            <li>
             <small class="text-muted"><a href="photo_profile_two.html">{{user.posts.count}} Posts <em class="fa fa-angle-right pull-right"></em></a> </small><br/>
-            <small class="text-muted"><a href="http://127.0.0.1:8000/usertables/{{user.username}}">{{user.tables.count}} Tables <em class="fa fa-angle-right pull-right"></em></a> </small><br/>
+            <small class="text-muted"><a href="/usertables/{{user.username}}">{{user.tables.count}} Tables <em class="fa fa-angle-right pull-right"></em></a> </small><br/>
             <small class="text-muted"><a href="photo_followers.html">456 Following <em class="fa fa-angle-right pull-right"></em></a> </small>
             <hr>
             <small class="text-muted">Bio: </small>
@@ -309,9 +309,9 @@
        {% for post in user.posts.all %}
 
 		  <div class="col-lg-6">
-			 <a href="http://127.0.0.1:8000/posts/{{post.id}}" data-toggle="modal">
+			 <a href="/posts/{{post.id}}" data-toggle="modal">
 			 <div class="explorebox"
-			   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url(http://127.0.0.1:8000/media/{{post.picture_name}}) no-repeat;
+			   style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url(/media/{{post.picture_name}}) no-repeat;
 					  background-size: cover;
 					  background-position: center center;
 					  -webkit-background-size: cover;

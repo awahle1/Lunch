@@ -6,11 +6,44 @@ from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 import json
 from lunch.models import Table, Event, Member, Post
+import time
 
 
 # Create your views here.
 
 role = ''
+
+def mergeSort(arr):
+    if len(arr) >1:
+        mid = len(arr)//2 # Finding the mid of the array
+        L = arr[:mid] # Dividing the array elements
+        R = arr[mid:] # into 2 halves
+
+        mergeSort(L) # Sorting the first half
+        mergeSort(R) # Sorting the second half
+
+        i = j = k = 0
+
+        # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if L[i] > R[j]:
+                arr[k] = L[i]
+                i+= 1
+            else:
+                arr[k] = R[j]
+                j+= 1
+            k+= 1
+
+        # Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i+= 1
+            k+= 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j+= 1
+            k+= 1
 
 def get_context(user):
     context={
@@ -22,6 +55,21 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, "lunch/login.html", {"message": None})
     context = get_context(request.user)
+    posts = []
+    temp = []
+    tables = request.user.tables.all()
+    if len(tables)>0:
+        for table in tables:
+            for post in table.posts.all():
+                temp.append(post.ts)
+        mergeSort(temp)
+        for ts in temp:
+            posts.append(Post.objects.get(ts = ts))
+    else:
+        posts = Post.objects.get()
+    context['posts'] = posts
+    print("----------------------------------aa------------------")
+    print(posts)
     return render(request, 'lunch/home.html', context)
 
 def explore(request):
@@ -244,7 +292,8 @@ def postpic(request):
     table = Table.objects.get(name=table)
     fs=FileSystemStorage()
     fs.save(uploaded_file.name, uploaded_file)
-    post = Post(text=text, picture_name=uploaded_file.name,author=request.user)
+    member = Member.objects.get(user = request.user)
+    post = Post(text=text, picture_name=uploaded_file.name,author=request.user, ts = time.time(), auth_pp=member.propic)
     post.save()
     post.table.add(table)
     post.save()
