@@ -259,7 +259,7 @@
 			<div class="user-info">
 			 <div class="image">
 		      <a href="photo_profile_two.html">
-			   <img src="./media/{{propic}}" class="img-responsive img-circle" alt="">
+			   <img src="/media/{{propic}}" class="img-responsive img-circle" alt="">
 			   <span class="online-status online"></span>
 			  </a>
 			 </div>
@@ -267,16 +267,6 @@
 			       <h4>{{user.first_name}} {{user.last_name}}</h4>
 			  <small>@{{user.username}}</small>
 			 </div>
-       <div class="row">
-         <button onclick="propic()">Edit profile picture</button>
-       </div>
-       <div id="propic"class="row" style="visibility: collapse">
-         <form action="{% url 'propic' %}" method="post" enctype="multipart/form-data" >
-           {% csrf_token %}
-    			  <input type="file" name="propic">
-            <button type="submit">Update</button>
-   		  </form>
-       </div>
 			 <div class="row">
 			  <div class="col-12">
 			   <a title="facebook" href="#" class=" waves-effect waves-block"><i class="fab fa-facebook"></i></a>

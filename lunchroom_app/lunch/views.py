@@ -68,8 +68,6 @@ def index(request):
     else:
         posts = Post.objects.get()
     context['posts'] = posts
-    print("----------------------------------aa------------------")
-    print(posts)
     return render(request, 'lunch/home.html', context)
 
 def explore(request):
@@ -283,6 +281,12 @@ def show_tables(request, username):
     context=get_context(request.user)
     context['tables']=User.objects.get(username=username).tables.all()
     return render(request, 'lunch/table_results.html', context)
+
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    context=get_context(user)
+    context['propic'] = user.member.propic
+    return render(request, 'lunch/user_profile.html', context)
 
 def postpic(request):
     context=get_context(request.user)

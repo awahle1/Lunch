@@ -11,6 +11,7 @@ urlpatterns = [
     path("tables", views.tables_view, name="tables"),
     path("profile", views.profile, name="profile"),
 
+
     path("login", views.login_view, name="login"),
     path("register", views.register_view, name="register"),
     path("register_action", views.register_action, name="register_action"),
@@ -32,6 +33,7 @@ urlpatterns = [
 
     path("posts/<str:postid>", views.show_post, name = "show_post"),
     path("usertables/<str:username>", views.show_tables, name = "show_tables"),
+    path("users/<str:username>", views.user_profile, name="user_profile"),
 
     path('is_member', views.is_member, name="in_member"),
     path('join', views.join, name="join"),
