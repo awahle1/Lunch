@@ -268,6 +268,9 @@
 			  <small>@{{user.username}}</small>
 			 </div>
        <div class="row">
+         <a href="{% url 'logout' %}"><button name="button">Log Out</button></a> 
+       </div>
+       <div class="row">
          <button onclick="propic()">Edit profile picture</button>
        </div>
        <div id="propic"class="row" style="visibility: collapse">

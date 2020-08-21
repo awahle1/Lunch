@@ -73,6 +73,12 @@ def index(request):
 
 def explore(request):
     context = get_context(request.user)
+    temp = Post.objects.all()
+    posts = []
+    for post in temp:
+        posts.append(post)
+    posts.reverse()
+    context['posts'] = posts
     return render(request, 'lunch/explore.html', context)
 
 def new_post(request):
@@ -154,11 +160,13 @@ def ctable_action(request):
     desc=request.POST["description"]
     table = Table(owner = request.user, name = name, description=desc)
     #Add the creator to the members list
+    table.save()
     table.members.add(request.user)
     table.save()
     context = get_context(request.user)
     context['table'] = table
-    return render(request, 'lunch/tableprofile.html', context)
+    tableid = table.id
+    return HttpResponseRedirect(reverse("table_profile", args=[tableid]))
 
 def table_profile(request, tableid):
     id = int(tableid)
@@ -218,6 +226,10 @@ def login_view(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "lunch/login.html", {"message": "Invalid Credentials"})
+
+def logout_view(request):
+    logout(request)
+    return render(request, "lunch/login.html")
 
 def register_view(request):
     return render(request, "lunch/register.html")
@@ -291,7 +303,7 @@ def postpic(request):
     member = Member.objects.get(user = request.user)
     post = Post(text=text, picture_name=uploaded_file.name,author=request.user, ts = time.time(), auth_pp=member.propic)
     post.save()
-    post.table.add(table)
+    post.table = table
     post.save()
     context['post']=post
     return render(request, 'lunch/post.html', context)
