@@ -25,7 +25,6 @@ urlpatterns = [
     path("search_members", views.search_members, name='search_members'),
     path("tables/<str:tableid>", views.table_profile, name = "table_profile"),
     path("tables/<str:tableid>/edit", views.edit_table_profile, name = "edit_table_profile"),
-    path("members/<str:username>", views.member_profile, name = "member_profile"),
 
     path("edit_tpp", views.edit_tpp, name="edit_tpp"),
     path("edit_banner", views.edit_banner, name="edit_banner"),

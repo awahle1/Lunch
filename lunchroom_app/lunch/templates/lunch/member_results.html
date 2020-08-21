@@ -183,10 +183,10 @@
 
 		 <li class="dropdown mega-avatar">
 		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-		   <span class="avatar w-32"><img src="assets/img/users/2.jpg" class="img-resonsive img-circle" width="25" height="25" alt="..."></span>
+		   <span class="avatar w-32"><img src="/media/{{propic}}" class="img-resonsive img-circle" width="25" height="25" alt="..."></span>
 		   <!-- hidden-xs hides the username on small devices so only the image appears. -->
 		   <span class="hidden-xs">
-			Alex Grantte
+			{{user.first_name}} {{user.last_name}}
 		   </span>
 		  </a>
 		  <div class="dropdown-menu w dropdown-menu-scale pull-right">
@@ -248,7 +248,7 @@
 	   <div class="row">
        {% for member in members %}
        <div class="col-lg-4">
-      <a href="http://127.0.0.1:8000/members/{{member.username}}">
+      <a href="/users/{{member.username}}">
       <div class="storybox"
         style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/3.gif') no-repeat;
                background-size: cover;

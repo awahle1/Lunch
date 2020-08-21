@@ -47,7 +47,8 @@ def mergeSort(arr):
 
 def get_context(user):
     context={
-        'user': user
+        'user': user,
+        'propic': user.member.propic,
     }
     return(context)
 
@@ -84,7 +85,6 @@ def tables_view(request):
 
 def profile(request):
     context = get_context(request.user)
-    context['propic'] = request.user.member.propic
     return render(request, 'lunch/profile.html', context)
 
 def search_tables(request):
@@ -159,13 +159,6 @@ def ctable_action(request):
     context = get_context(request.user)
     context['table'] = table
     return render(request, 'lunch/tableprofile.html', context)
-
-def member_profile(request, username):
-    member = User.objects.get(username=username)
-    context = {'user': member}
-
-    return render(request, 'lunch/member_profile.html', context)
-
 
 def table_profile(request, tableid):
     id = int(tableid)
@@ -285,7 +278,6 @@ def show_tables(request, username):
 def user_profile(request, username):
     user = User.objects.get(username=username)
     context=get_context(user)
-    context['propic'] = user.member.propic
     return render(request, 'lunch/user_profile.html', context)
 
 def postpic(request):
