@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 import json
-from lunch.models import Table, Event, Member, Post
+from lunch.models import Table, Event, Member, Post, Comment
 import time
 
 
@@ -308,6 +308,16 @@ def show_post(request, postid):
     post = Post.objects.get(id = postid)
     context['post']=post
     return render(request, 'lunch/post.html', context)
+
+def comment(request):
+    comment = request.POST['comment']
+    postid = request.POST['postid']
+    newcomment = Comment(text=comment, author=request.user, mauthor=request.user.member, ts=time.time())
+    newcomment.save()
+    post = Post.objects.get(id=postid)
+    post.comments.add(newcomment)
+    post.save()
+    return HttpResponseRedirect(reverse("show_post", args=[postid]))
 
 def show_tables(request, username):
     context=get_context(request.user)

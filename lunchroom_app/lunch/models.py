@@ -24,6 +24,19 @@ class Member(models.Model):
     def __str__(self):
         return (self.user.first_name + " "+ self.user.last_name)
 
+class Comment(models.Model):
+    text = models.CharField(
+        max_length=300,
+        default = ''
+    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    mauthor = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='comments')
+    ts = models.IntegerField(
+        default = 0,
+        null = True,
+        blank=True
+    )
+
 class Event(models.Model):
     name = models.CharField(
         max_length=50,
@@ -78,6 +91,6 @@ class Post(models.Model):
         null = True,
         blank=True
     )
-
+    comments = models.ManyToManyField(Comment, blank=True, related_name='post')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='posts', null=True)

@@ -33,6 +33,8 @@ urlpatterns = [
     path("edit_description", views.edit_description, name="edit_description"),
 
     path("posts/<str:postid>", views.show_post, name = "show_post"),
+    path("comment", views.comment, name="comment"),
+
     path("usertables/<str:username>", views.show_tables, name = "show_tables"),
     path("users/<str:username>", views.user_profile, name="user_profile"),
 
