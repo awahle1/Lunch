@@ -71,6 +71,13 @@ def index(request):
     context['posts'] = posts
     return render(request, 'lunch/home.html', context)
 
+def table_feed(request, tableid):
+    context = get_context(request.user)
+    table = Table.objects.get(id = int(tableid))
+    posts = table.posts.all()
+    context['posts'] = posts
+    return render(request, 'lunch/home.html', context)
+
 def explore(request):
     context = get_context(request.user)
     temp = Post.objects.all()
@@ -79,6 +86,26 @@ def explore(request):
         posts.append(post)
     posts.reverse()
     context['posts'] = posts
+    temptables = []
+    temptables2 = Table.objects.all()
+    for table in temptables2:
+        temptables.append(table)
+    print(temptables)
+    #for table in temptables:
+    #    if request.user in table.members.all():
+    #        temptables.remove(table)
+
+    tables=[]
+    for i in range(0,4):
+        max=0
+        maxtable=None
+        for table in temptables:
+            if table.members.count() > max:
+                max = table.members.count()
+                maxtable = table
+        tables.append(maxtable)
+        temptables.remove(maxtable)
+    context['tables']=tables
     return render(request, 'lunch/explore.html', context)
 
 def new_post(request):

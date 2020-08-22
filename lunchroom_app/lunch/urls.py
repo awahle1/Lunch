@@ -11,6 +11,7 @@ urlpatterns = [
     path("tables", views.tables_view, name="tables"),
     path("profile", views.profile, name="profile"),
 
+    path("tablefeed/<str:tableid>", views.table_feed, name="table_feed"),
 
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),

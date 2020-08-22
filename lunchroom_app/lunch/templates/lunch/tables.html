@@ -251,7 +251,9 @@
         </a>
       </div>
       <div class="row">
-        <button class="kafe-btn kafe-btn-mint btn-lg btn-block">Join a table</button>
+        <a href="{% url 'explore' %}">
+          <button class="kafe-btn kafe-btn-mint btn-lg btn-block">Join a table</button>
+        </a>
       </div>
       <div class="row one-row">
        <div class="col-lg-12">
@@ -271,7 +273,6 @@
                   -o-background-size: cover;">
           <div class="story-body text-center">
            <h4>{{table.name}}</h4>
-           <p>2 hours ago</p>
           </div>
 		 </div>
 		 </a>

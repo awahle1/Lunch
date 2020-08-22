@@ -248,78 +248,34 @@
 	  <div class="container-fluid">
 	   <div class="row">
 	    <div class="col-lg-3">
-
-		 <a href="#">
+        <a href="{% url 'index' %}">
+   		 <div class="storybox"
+   		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url(https://i.pinimg.com/originals/15/19/35/15193552cc9a665b78a38b97c521dd13.jpg) no-repeat;
+   		          background-size: cover;
+                     background-position: center center;
+                     -webkit-background-size: cover;
+                     -moz-background-size: cover;
+                     -o-background-size: cover;">
+             <div class="story-body text-center">
+              <h4>All Tables</h4>
+             </div>
+   		 </div>
+   		 </a>
+      {% for table in request.user.tables.all %}
+		 <a href="/tablefeed/{{table.id}}">
 		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/2.gif') no-repeat;
+		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url(/media/{{table.pp_name}}) no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
                   -moz-background-size: cover;
                   -o-background-size: cover;">
           <div class="story-body text-center">
-           <div class=""><img class="img-circle" src="assets/img/users/10.jpg" alt="user"></div>
-           <h4>Clifford Graham</h4>
-           <p>2 hours ago</p>
+           <h4>{{table.name}}</h4>
           </div>
 		 </div>
 		 </a>
-
-		 <a href="#">
-		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/3.gif') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-          <div class="story-body text-center">
-           <div class=""><img class="img-circle" src="assets/img/users/13.jpeg" alt="user"></div>
-           <h4>Eleanor Harper</h4>
-           <p>4 hours ago</p>
-          </div>
-		 </div>
-		 </a>
-
-		 <a href="#">
-		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/4.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-          <div class="story-body text-center">
-           <div class=""><img class="img-circle" src="assets/img/users/12.jpg" alt="user"></div>
-           <h4>Sean Coleman</h4>
-           <p>5 hours ago</p>
-          </div>
-		 </div>
-		 </a>
-
-		 <a href="#">
-		 <div class="storybox"
-		   style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('assets/img/posts/15.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-          <div class="story-body text-center">
-           <div class=""><img class="img-circle" src="assets/img/users/15.jpg" alt="user"></div>
-           <h4>Vanessa Wells</h4>
-           <p>5 hours ago</p>
-          </div>
-		 </div>
-		 </a>
-
-        <div class="trending-box hidden-xs hidden-md">
-		 <div class="row">
-		  <div class="col-lg-12">
-		    <a href="photo_stories.html"><h4>More stories</h4></a>
-		  </div>
-		 </div>
-        </div>
+{% endfor %}
 
 		</div><!--/ col-lg-3 -->
 	    <div class="col-lg-6">
