@@ -354,6 +354,17 @@ def show_tables(request, username):
 def user_profile(request, username):
     user = User.objects.get(username=username)
     context=get_context(user)
+    tempusers1=User.objects.all()
+    tempusers = []
+    for user in tempusers1:
+        tempusers.append(user)
+    tempusers.remove(User.objects.get(username='austin'))
+    users = []
+    while len(users) < 8:
+        num = random.randint(0,len(tempusers))
+        users.append(tempusers[num-1])
+        tempusers.remove(tempusers[num-1])
+    context['users'] = users
     return render(request, 'lunch/user_profile.html', context)
 
 def postpic(request):
