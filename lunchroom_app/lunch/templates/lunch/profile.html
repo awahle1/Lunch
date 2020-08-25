@@ -281,11 +281,6 @@
    		  </form>
        </div>
 			 <div class="row">
-			  <div class="col-12">
-			   <a title="facebook" href="#" class=" waves-effect waves-block"><i class="fab fa-facebook"></i></a>
-			   <a title="twitter" href="#" class=" waves-effect waves-block"><i class="fab fa-twitter"></i></a>
-			   <a title="instagram" href="#" class=" waves-effect waves-block"><i class="fab fa-instagram"></i></a>
-			  </div>
 			 </div>
 			</div>
            </li>
@@ -293,11 +288,8 @@
             <small class="text-muted"><a href="">{{user.posts.count}} Posts <em class="fa fa-angle-right pull-right"></em></a> </small><br/>
             <small class="text-muted"><a href="/usertables/{{user.username}}">{{user.tables.count}} Tables <em class="fa fa-angle-right pull-right"></em></a> </small><br/>
             <hr>
-            <small class="text-muted">Bio: </small>
-            <p>795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-            <hr>
-            <small class="text-muted">Website: </small>
-            <p>http://www.themashabrand.com </p>
+            <small class="text-muted">Year of Graduation: </small>
+            <p>{{user.member.yog}}</p>
             <hr>
            </li>
           </ul>
@@ -351,7 +343,7 @@
 			</div><!--suggestions-list end-->
 		</div>
 
-      
+
 
 
 		</div>
