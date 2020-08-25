@@ -7,6 +7,7 @@ from django.core.files.storage import FileSystemStorage
 import json
 from lunch.models import Table, Event, Member, Post, Comment
 import time
+import random
 
 
 # Create your views here.
@@ -39,7 +40,6 @@ def mergeSort(arr):
             arr[k] = L[i]
             i+= 1
             k+= 1
-
         while j < len(R):
             arr[k] = R[j]
             j+= 1
@@ -67,8 +67,19 @@ def index(request):
         for ts in temp:
             posts.append(Post.objects.get(ts = ts))
     else:
-        posts = Post.objects.get()
-    context['posts'] = posts
+        posts = Post.objects.all()
+    context['posts'] = posts[:30]
+    tempusers1=User.objects.all()
+    tempusers = []
+    for user in tempusers1:
+        tempusers.append(user)
+    tempusers.remove(User.objects.get(username='austin'))
+    users = []
+    while len(users) < 8:
+        num = random.randint(0,len(tempusers))
+        users.append(tempusers[num-1])
+        tempusers.remove(tempusers[num-1])
+    context['users'] = users
     return render(request, 'lunch/home.html', context)
 
 def table_feed(request, tableid):
@@ -123,6 +134,17 @@ def tables_view(request):
 
 def profile(request):
     context = get_context(request.user)
+    tempusers1=User.objects.all()
+    tempusers = []
+    for user in tempusers1:
+        tempusers.append(user)
+    tempusers.remove(User.objects.get(username='austin'))
+    users = []
+    while len(users) < 8:
+        num = random.randint(0,len(tempusers))
+        users.append(tempusers[num-1])
+        tempusers.remove(tempusers[num-1])
+    context['users'] = users
     return render(request, 'lunch/profile.html', context)
 
 def search_tables(request):

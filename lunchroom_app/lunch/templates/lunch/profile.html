@@ -268,7 +268,7 @@
 			  <small>@{{user.username}}</small>
 			 </div>
        <div class="row">
-         <a href="{% url 'logout' %}"><button name="button">Log Out</button></a> 
+         <a href="{% url 'logout' %}"><button name="button">Log Out</button></a>
        </div>
        <div class="row">
          <button onclick="propic()">Edit profile picture</button>
@@ -336,91 +336,22 @@
 
          <div class="suggestion-box full-width">
 			<div class="suggestions-list">
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/1.jpg" alt="">
-					<div class="name-box">
-						<h4>Vanessa Wells</h4>
-						<span>@vannessa</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
-				</div>
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/2.jpg" alt="">
-					<div class="name-box">
-						<h4>Anthony McCartney</h4>
-						<span>@antony</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
-				</div>
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/3.jpg" alt="">
-					<div class="name-box">
-						<h4>Anna Morgan</h4>
-						<span>@anna</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
-				</div>
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/4.jpg" alt="">
-					<div class="name-box">
-						<h4>Sean Coleman</h4>
-						<span>@sean</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
-				</div>
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/5.jpg" alt="">
-					<div class="name-box">
-						<h4>Grace Karen</h4>
-						<span>@grace</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
-				</div>
-				<div class="suggestion-body">
-					<img class="img-responsive img-circle" src="assets/img/users/6.jpg" alt="">
-					<div class="name-box">
-						<h4>Clifford Graham</h4>
-						<span>@clifford</span>
-					</div>
-					<span><i class="fa fa-plus"></i></span>
+        {% for user in users %}
+        <a href="/users/{{user.username}}">
+        <div class="suggestion-body">
+          <img class="img-responsive img-circle" src="/media/{{user.member.propic}}" alt="Image">
+          <div class="name-box">
+            <h4>{{user.first_name}} {{user.last_name}}</h4>
+            <span>@{{user.username}}</span>
+          </div>
+        </div>
+        </a>
+        {% endfor %}
 				</div>
 			</div><!--suggestions-list end-->
 		</div>
 
-        <div class="trending-box">
-		 <div class="row">
-		  <div class="col-lg-12">
-		    <h4>Trending Photos</h4>
-		  </div>
-		 </div>
-        </div>
-
-        <div class="trending-box">
-		 <div class="row">
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/17.jpg" class="img-responsive" alt="Image"/></a>
-		  </div>
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/12.jpg" class="img-responsive" alt="Image"/></a>
-		  </div>
-		 </div>
-		 <div class="row">
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/21.gif" class="img-responsive" alt="Image"/></a>
-		  </div>
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/23.gif" class="img-responsive" alt="Image"/></a>
-		  </div>
-		 </div>
-		 <div class="row">
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/11.jpg" class="img-responsive" alt="Image"/></a>
-		  </div>
-		  <div class="col-lg-6">
-		   <a href="#"><img src="assets/img/posts/20.jpg" class="img-responsive" alt="Image"/></a>
-		  </div>
-		 </div>
-        </div>
+      
 
 
 		</div>
