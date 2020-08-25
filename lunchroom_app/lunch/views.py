@@ -85,7 +85,7 @@ def explore(request):
     for post in temp:
         posts.append(post)
     posts.reverse()
-    context['posts'] = posts
+    context['posts'] = posts[0:30]
     temptables = []
     temptables2 = Table.objects.all()
     for table in temptables2:
@@ -107,6 +107,11 @@ def explore(request):
         temptables.remove(maxtable)
     context['tables']=tables
     return render(request, 'lunch/explore.html', context)
+
+def explore_tables(request):
+    context = get_context(request.user)
+    context['tables']=Table.objects.all()
+    return render(request, 'lunch/table_results.html', context)
 
 def new_post(request):
     context = get_context(request.user)

@@ -43,6 +43,8 @@ urlpatterns = [
 
     path('postpic', views.postpic, name='postpic'),
     path('propic', views.propic, name='propic'),
+
+    path('explore_tables', views.explore_tables, name='explore_tables'),
     ]
 
 if settings.DEBUG:
